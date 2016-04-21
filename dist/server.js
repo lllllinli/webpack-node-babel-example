@@ -71,41 +71,90 @@
 	
 	var _koaStatic2 = _interopRequireDefault(_koaStatic);
 	
-	var _path = __webpack_require__(/*! path */ 5);
+	var _koaJade = __webpack_require__(/*! koa-jade */ 5);
+	
+	var _koaJade2 = _interopRequireDefault(_koaJade);
+	
+	var _path = __webpack_require__(/*! path */ 6);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _server = __webpack_require__(/*! react-dom/server */ 6);
+	var _react = __webpack_require__(/*! react */ 7);
 	
-	var _reactRouter = __webpack_require__(/*! react-router */ 7);
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _server = __webpack_require__(/*! react-dom/server */ 8);
+	
+	var _server2 = _interopRequireDefault(_server);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 9);
+	
+	var _routes = __webpack_require__(/*! ./routes */ 10);
+	
+	var _routes2 = _interopRequireDefault(_routes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// import routes from "./router";
+	//
+	
+	// node tools
+	// ES6 ES7 套件
+	
+	
+	var port = 3000;
 	
 	//react
-	// ES6 ES7 套件
-	var port = 3000;
-	// node tools
+	
+	// Jade - Html Templete
 	
 	// web app
 	
 	var hostname = "localhost:";
 	var app = (0, _koa2.default)();
-	
 	var staticPath = _path2.default.join(__dirname, "./static");
 	var viewPath = _path2.default.join(__dirname, "/views");
+	var jade = new _koaJade2.default({
+	  viewPath: _path2.default.join("./src", "/views"),
+	  debug: true,
+	  app: app
+	});
 	
 	// 靜態檔案路徑
 	app.use((0, _koaStatic2.default)(staticPath));
 	
 	app.use(regeneratorRuntime.mark(function _callee(next) {
+	  var _this = this;
+	
+	  var location;
 	  return regeneratorRuntime.wrap(function _callee$(_context) {
 	    while (1) {
 	      switch (_context.prev = _context.next) {
 	        case 0:
-	          _context.next = 2;
-	          return function () {};
+	          location = this.path;
+	
+	
+	          (0, _reactRouter.match)({ routes: _routes2.default, location: location }, function (error, redirectLocation, renderProps) {
+	            if (redirectLocation) {
+	              _this.redirect(redirectLocation.pathname + redirectLocation.search, '/');
+	              return;
+	            }
+	
+	            if (error || !renderProps) {
+	              return;
+	            }
+	
+	            var content = _server2.default.renderToString(_react2.default.createElement(_reactRouter.RouterContext, renderProps));
+	            var webTitle = 'Koa-jade: a Jade middleware for Koa';
+	
+	            _this.render('index.jade', {
+	              title: webTitle,
+	              content: content
+	            });
+	          });
+	
+	          /**
+	          * End
+	          **/
 	
 	        case 2:
 	        case "end":
@@ -150,6 +199,15 @@
 
 /***/ },
 /* 5 */
+/*!***************************!*\
+  !*** external "koa-jade" ***!
+  \***************************/
+/***/ function(module, exports) {
+
+	module.exports = require("koa-jade");
+
+/***/ },
+/* 6 */
 /*!***********************!*\
   !*** external "path" ***!
   \***********************/
@@ -158,7 +216,16 @@
 	module.exports = require("path");
 
 /***/ },
-/* 6 */
+/* 7 */
+/*!************************!*\
+  !*** external "react" ***!
+  \************************/
+/***/ function(module, exports) {
+
+	module.exports = require("react");
+
+/***/ },
+/* 8 */
 /*!***********************************!*\
   !*** external "react-dom/server" ***!
   \***********************************/
@@ -167,13 +234,165 @@
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 7 */
+/* 9 */
 /*!*******************************!*\
   !*** external "react-router" ***!
   \*******************************/
 /***/ function(module, exports) {
 
 	module.exports = require("react-router");
+
+/***/ },
+/* 10 */
+/*!************************!*\
+  !*** ../src/routes.js ***!
+  \************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _react = __webpack_require__(/*! react */ 7);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 9);
+	
+	var _Main = __webpack_require__(/*! ./Main */ 11);
+	
+	var _Main2 = _interopRequireDefault(_Main);
+	
+	var _About = __webpack_require__(/*! ./pages/About/About */ 12);
+	
+	var _About2 = _interopRequireDefault(_About);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * The React Router routes for both the server and the client.
+	 */
+	
+	var routes = _react2.default.createElement(
+	  _reactRouter.Router,
+	  null,
+	  _react2.default.createElement(
+	    _reactRouter.Route,
+	    { path: "/", component: _Main2.default },
+	    _react2.default.createElement(_reactRouter.Route, { path: "/about", component: _About2.default })
+	  )
+	);
+	
+	module.exports = routes;
+
+/***/ },
+/* 11 */
+/*!**********************!*\
+  !*** ../src/Main.js ***!
+  \**********************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 7);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Main = function (_React$Component) {
+	  _inherits(Main, _React$Component);
+	
+	  function Main() {
+	    _classCallCheck(this, Main);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Main).apply(this, arguments));
+	  }
+	
+	  _createClass(Main, [{
+	    key: "render",
+	    value: function render() {
+	      var msg = "Main -co";
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        msg,
+	        this.props.children
+	      );
+	    }
+	  }]);
+	
+	  return Main;
+	}(_react2.default.Component);
+	
+	;
+	
+	exports.default = Main;
+
+/***/ },
+/* 12 */
+/*!***********************************!*\
+  !*** ../src/pages/About/About.js ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 7);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var About = function (_React$Component) {
+	  _inherits(About, _React$Component);
+	
+	  function About() {
+	    _classCallCheck(this, About);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(About).apply(this, arguments));
+	  }
+	
+	  _createClass(About, [{
+	    key: "render",
+	    value: function render() {
+	      var msg = "Abbot Page";
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        msg
+	      );
+	    }
+	  }]);
+	
+	  return About;
+	}(_react2.default.Component);
+	
+	;
+	
+	exports.default = About;
 
 /***/ }
 /******/ ]);
