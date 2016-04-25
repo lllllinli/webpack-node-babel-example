@@ -1,11 +1,12 @@
 import React from "react";
 
+
 class Main extends React.Component {
   render() {
-    const msg = "Main -co";
+    const msg = "Main - Connent";
     return (
       <div>
-        {msg}
+        <h1>{msg}</h1>
         {this.props.children}
       </div>
     );

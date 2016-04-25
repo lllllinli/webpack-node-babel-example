@@ -1,14 +1,13 @@
 html  
-  head
+  head(lang='zh-tw')
     title= title
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
-
-
     meta(name='description', content='')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-
+    link(href='' rel="stylesheet")
   body
+    // server side render root
     #app!= content
 
-  script(src='http://localhost:3000/static/dist/app.js', defer)
+  script(src='http://localhost:3000/client.js', defer)

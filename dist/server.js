@@ -47,14 +47,14 @@
   \******************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! /Users/standley/Documents/work_space/webpack-server-example/src/server */1);
+	module.exports = __webpack_require__(/*! /Users/standley/Documents/work_space/webpack-server-example/src/server/server */1);
 
 
 /***/ },
 /* 1 */
-/*!************************!*\
-  !*** ../src/server.js ***!
-  \************************/
+/*!*******************************!*\
+  !*** ../src/server/server.js ***!
+  \*******************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__dirname) {"use strict";
@@ -95,32 +95,29 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//
-	
-	// node tools
-	// ES6 ES7 套件
-	
-	
-	var port = 3000;
-	
-	//react
+	// React
 	
 	// Jade - Html Templete
 	
 	// web app
 	
+	
+	var port = 3000;
+	// node tools
+	// ES6 ES7 套件
+	
 	var hostname = "localhost:";
 	var app = (0, _koa2.default)();
-	var staticPath = _path2.default.join(__dirname, "./static");
+	var staticPath = _path2.default.join(__dirname, "..", "./static");
 	var viewPath = _path2.default.join(__dirname, "/views");
 	var jade = new _koaJade2.default({
-	  viewPath: _path2.default.join("./src", "/views"),
+	  viewPath: _path2.default.join("./src", "/server", "/views"),
 	  debug: true,
 	  app: app
 	});
 	
 	// 靜態檔案路徑
-	app.use((0, _koaStatic2.default)(staticPath));
+	app.use((0, _koaStatic2.default)("./static"));
 	
 	app.use(regeneratorRuntime.mark(function _callee(next) {
 	  var _this = this;
@@ -131,7 +128,7 @@
 	      switch (_context.prev = _context.next) {
 	        case 0:
 	          location = this.path;
-	
+	          // use react router
 	
 	          (0, _reactRouter.match)({ routes: _routes2.default, location: location }, function (error, redirectLocation, renderProps) {
 	            if (redirectLocation) {
@@ -146,15 +143,13 @@
 	            var content = _server2.default.renderToString(_react2.default.createElement(_reactRouter.RouterContext, renderProps));
 	            var webTitle = 'Koa-jade: a Jade middleware for Koa';
 	
+	            //todo framework
+	
 	            _this.render('index.jade', {
 	              title: webTitle,
 	              content: content
 	            });
-	          });
-	
-	          /**
-	          * End
-	          **/
+	          }); /* - match end - */
 	
 	        case 2:
 	        case "end":
@@ -168,7 +163,7 @@
 	  console.info('==> ✅  Server is listening');
 	  console.info('==> 🌎  Go to http://%s:%s', hostname, port);
 	});
-	/* WEBPACK VAR INJECTION */}.call(exports, "../src"))
+	/* WEBPACK VAR INJECTION */}.call(exports, "../src/server"))
 
 /***/ },
 /* 2 */
@@ -244,9 +239,9 @@
 
 /***/ },
 /* 10 */
-/*!************************!*\
-  !*** ../src/routes.js ***!
-  \************************/
+/*!*******************************!*\
+  !*** ../src/server/routes.js ***!
+  \*******************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -285,9 +280,9 @@
 
 /***/ },
 /* 11 */
-/*!**********************!*\
-  !*** ../src/Main.js ***!
-  \**********************/
+/*!*****************************!*\
+  !*** ../src/server/Main.js ***!
+  \*****************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -322,11 +317,15 @@
 	  _createClass(Main, [{
 	    key: "render",
 	    value: function render() {
-	      var msg = "Main -co";
+	      var msg = "Main - Connent";
 	      return _react2.default.createElement(
 	        "div",
 	        null,
-	        msg,
+	        _react2.default.createElement(
+	          "h1",
+	          null,
+	          msg
+	        ),
 	        this.props.children
 	      );
 	    }
@@ -341,9 +340,9 @@
 
 /***/ },
 /* 12 */
-/*!***********************************!*\
-  !*** ../src/pages/About/About.js ***!
-  \***********************************/
+/*!******************************************!*\
+  !*** ../src/server/pages/About/About.js ***!
+  \******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -369,20 +368,44 @@
 	var About = function (_React$Component) {
 	  _inherits(About, _React$Component);
 	
-	  function About() {
+	  function About(props) {
 	    _classCallCheck(this, About);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(About).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(About).call(this, props));
+	
+	    _this.state = { count: props.initialCount };
+	    _this._handler.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(About, [{
+	    key: "componentWillMount",
+	    value: function componentWillMount() {
+	      this._handler();
+	    }
+	  }, {
+	    key: "_handler",
+	    value: function _handler() {
+	      console.log("on handler");
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
 	      var msg = "Abbot Page";
 	      return _react2.default.createElement(
 	        "div",
 	        null,
-	        msg
+	        _react2.default.createElement(
+	          "h2",
+	          { className: "title" },
+	          msg
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          null,
+	          "counts: ",
+	          this.state.count
+	        )
 	      );
 	    }
 	  }]);
@@ -391,6 +414,9 @@
 	}(_react2.default.Component);
 	
 	;
+	
+	About.propTypes = { initialCount: _react2.default.PropTypes.number };
+	About.defaultProps = { initialCount: 10 };
 	
 	exports.default = About;
 

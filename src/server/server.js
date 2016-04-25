@@ -7,56 +7,53 @@ import koaStatic from "koa-static";
 import Jade from "koa-jade";
 // node tools
 import path from "path";
-
-//react
+// React
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-
 import { match, RouterContext } from "react-router";
-//
-import {Router, Route} from "react-router";
-
 import routes from "./routes";
 
 const port = 3000;
 const hostname = "localhost:";
 const app = koa();
-const staticPath = path.join(__dirname, "./static");
+const staticPath = path.join(__dirname, "..", "./static");
 const viewPath = path.join(__dirname ,"/views");
 const jade = new Jade({
-  viewPath: path.join("./src","/views"),
+  viewPath: path.join("./src", "/server", "/views"),
   debug: true,
   app: app
 });
 
 // 靜態檔案路徑
-app.use(koaStatic(staticPath));
+app.use(koaStatic("./static"));
 
 app.use(function *(next){
   const location = this.path;
 
+  // use React Router
   match({ routes, location: location}, (error, redirectLocation, renderProps) => {
+
     if (redirectLocation) {
 			this.redirect(redirectLocation.pathname + redirectLocation.search, '/');
 			return;
 		}
 
 		if (error || !renderProps) {
-			return;
+      return;
 		}
 
+    console.log(`--- path:${this.path}`);
+
     const content = ReactDOMServer.renderToString(<RouterContext {...renderProps} />);
-    const webTitle = 'Koa-jade: a Jade middleware for Koa';
+    const webTitle = 'Koa-jade: a Jade middleware for Ko';
+    const templeteOptions =  {
+          title    : webTitle,
+          content  : content,
+          clientJs : ''
+    };
 
-    this.render('index.jade', {
-          title: webTitle,
-          content: content
-    });
-  });
-
-  /**
-  * End
-  **/
+    this.render('index.jade', templeteOptions);
+  });/* - match end - */
 
 });
 
