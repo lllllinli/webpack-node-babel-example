@@ -1,5 +1,15 @@
 import React from "react";
+import fetch from "node-fetch"
 
+/**
+* use node fetch
+**/
+// fetch('https://github.com/')
+//     .then(function(res) {
+//         return res.text();
+//     }).then(function(body) {
+//         console.log(body);
+//     });
 
 
 class About extends React.Component {
@@ -9,6 +19,7 @@ class About extends React.Component {
     ::this._handler;
   }
   componentWillMount(){
+    //todo fetch
     this._handler();
   }
   _handler() {

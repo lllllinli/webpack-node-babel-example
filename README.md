@@ -14,6 +14,7 @@ Server - NodeJs Server Side:
   - Jabe (Html Template)
   - React Server Side Render
   - React Router (Router Controller)
+  - Node Fetch (GET/POST API)
 
 Tools
 
@@ -21,12 +22,16 @@ Tools
 
     use in server side NodeJs and client side React
 
-    * style - sass
+    * style - sass / compass
 
 Client - React Commponent
 
   -  React Js
-  -  
+
+Client -
+
+  -  JQuery
+  -  Bootstrap
 
 
 樣式

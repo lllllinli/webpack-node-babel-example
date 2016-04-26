@@ -71,41 +71,46 @@
 	
 	var _koaStatic2 = _interopRequireDefault(_koaStatic);
 	
-	var _koaJade = __webpack_require__(/*! koa-jade */ 5);
+	var _koaRoute = __webpack_require__(/*! koa-route */ 5);
+	
+	var _koaRoute2 = _interopRequireDefault(_koaRoute);
+	
+	var _koaJade = __webpack_require__(/*! koa-jade */ 6);
 	
 	var _koaJade2 = _interopRequireDefault(_koaJade);
 	
-	var _path = __webpack_require__(/*! path */ 6);
+	var _path = __webpack_require__(/*! path */ 7);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _react = __webpack_require__(/*! react */ 7);
+	var _react = __webpack_require__(/*! react */ 8);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(/*! react-dom/server */ 8);
+	var _server = __webpack_require__(/*! react-dom/server */ 9);
 	
 	var _server2 = _interopRequireDefault(_server);
 	
-	var _reactRouter = __webpack_require__(/*! react-router */ 9);
+	var _reactRouter = __webpack_require__(/*! react-router */ 10);
 	
-	var _routes = __webpack_require__(/*! ./routes */ 10);
+	var _routes = __webpack_require__(/*! ./routes */ 11);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// React
-	
-	// Jade - Html Templete
+	var _marked = [list].map(regeneratorRuntime.mark); // ES6 ES7 套件
 	
 	// web app
 	
+	// Jade - Html Templete
+	
+	// node tools
+	
+	// React
+	
 	
 	var port = 3000;
-	// node tools
-	// ES6 ES7 套件
-	
 	var hostname = "localhost:";
 	var app = (0, _koa2.default)();
 	var staticPath = _path2.default.join(__dirname, "..", "./static");
@@ -118,19 +123,42 @@
 	
 	// 靜態檔案路徑
 	app.use((0, _koaStatic2.default)("./static"));
+	app.use(_koaRoute2.default.get('/api/book', list));
+	
+	function list() {
+	  var res;
+	  return regeneratorRuntime.wrap(function list$(_context) {
+	    while (1) {
+	      switch (_context.prev = _context.next) {
+	        case 0:
+	          res = {
+	            "name": "123"
+	          };
+	
+	          this.body = res;
+	
+	        case 2:
+	        case "end":
+	          return _context.stop();
+	      }
+	    }
+	  }, _marked[0], this);
+	}
 	
 	app.use(regeneratorRuntime.mark(function _callee(next) {
 	  var _this = this;
 	
 	  var location;
-	  return regeneratorRuntime.wrap(function _callee$(_context) {
+	  return regeneratorRuntime.wrap(function _callee$(_context2) {
 	    while (1) {
-	      switch (_context.prev = _context.next) {
+	      switch (_context2.prev = _context2.next) {
 	        case 0:
 	          location = this.path;
-	          // use react router
+	
+	          // use React Router
 	
 	          (0, _reactRouter.match)({ routes: _routes2.default, location: location }, function (error, redirectLocation, renderProps) {
+	
 	            if (redirectLocation) {
 	              _this.redirect(redirectLocation.pathname + redirectLocation.search, '/');
 	              return;
@@ -140,20 +168,22 @@
 	              return;
 	            }
 	
+	            console.log("--- path:" + _this.path);
+	
 	            var content = _server2.default.renderToString(_react2.default.createElement(_reactRouter.RouterContext, renderProps));
-	            var webTitle = 'Koa-jade: a Jade middleware for Koa';
-	
-	            //todo framework
-	
-	            _this.render('index.jade', {
+	            var webTitle = 'Koa-jade: a Jade middleware for Ko';
+	            var templeteOptions = {
 	              title: webTitle,
-	              content: content
-	            });
+	              content: content,
+	              clientJs: ''
+	            };
+	
+	            _this.render('index.jade', templeteOptions);
 	          }); /* - match end - */
 	
 	        case 2:
 	        case "end":
-	          return _context.stop();
+	          return _context2.stop();
 	      }
 	    }
 	  }, _callee, this);
@@ -194,6 +224,15 @@
 
 /***/ },
 /* 5 */
+/*!****************************!*\
+  !*** external "koa-route" ***!
+  \****************************/
+/***/ function(module, exports) {
+
+	module.exports = require("koa-route");
+
+/***/ },
+/* 6 */
 /*!***************************!*\
   !*** external "koa-jade" ***!
   \***************************/
@@ -202,7 +241,7 @@
 	module.exports = require("koa-jade");
 
 /***/ },
-/* 6 */
+/* 7 */
 /*!***********************!*\
   !*** external "path" ***!
   \***********************/
@@ -211,7 +250,7 @@
 	module.exports = require("path");
 
 /***/ },
-/* 7 */
+/* 8 */
 /*!************************!*\
   !*** external "react" ***!
   \************************/
@@ -220,7 +259,7 @@
 	module.exports = require("react");
 
 /***/ },
-/* 8 */
+/* 9 */
 /*!***********************************!*\
   !*** external "react-dom/server" ***!
   \***********************************/
@@ -229,7 +268,7 @@
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 9 */
+/* 10 */
 /*!*******************************!*\
   !*** external "react-router" ***!
   \*******************************/
@@ -238,7 +277,7 @@
 	module.exports = require("react-router");
 
 /***/ },
-/* 10 */
+/* 11 */
 /*!*******************************!*\
   !*** ../src/server/routes.js ***!
   \*******************************/
@@ -246,17 +285,17 @@
 
 	"use strict";
 	
-	var _react = __webpack_require__(/*! react */ 7);
+	var _react = __webpack_require__(/*! react */ 8);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(/*! react-router */ 9);
+	var _reactRouter = __webpack_require__(/*! react-router */ 10);
 	
-	var _Main = __webpack_require__(/*! ./Main */ 11);
+	var _Main = __webpack_require__(/*! ./Main */ 12);
 	
 	var _Main2 = _interopRequireDefault(_Main);
 	
-	var _About = __webpack_require__(/*! ./pages/About/About */ 12);
+	var _About = __webpack_require__(/*! ./pages/About/About */ 13);
 	
 	var _About2 = _interopRequireDefault(_About);
 	
@@ -279,7 +318,7 @@
 	module.exports = routes;
 
 /***/ },
-/* 11 */
+/* 12 */
 /*!*****************************!*\
   !*** ../src/server/Main.js ***!
   \*****************************/
@@ -293,7 +332,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 7);
+	var _react = __webpack_require__(/*! react */ 8);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -339,7 +378,7 @@
 	exports.default = Main;
 
 /***/ },
-/* 12 */
+/* 13 */
 /*!******************************************!*\
   !*** ../src/server/pages/About/About.js ***!
   \******************************************/
@@ -353,9 +392,13 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 7);
+	var _react = __webpack_require__(/*! react */ 8);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _nodeFetch = __webpack_require__(/*! node-fetch */ 14);
+	
+	var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -364,6 +407,16 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	/**
+	* use node fetch
+	**/
+	// fetch('https://github.com/')
+	//     .then(function(res) {
+	//         return res.text();
+	//     }).then(function(body) {
+	//         console.log(body);
+	//     });
 	
 	var About = function (_React$Component) {
 	  _inherits(About, _React$Component);
@@ -381,6 +434,7 @@
 	  _createClass(About, [{
 	    key: "componentWillMount",
 	    value: function componentWillMount() {
+	      //todo fetch
 	      this._handler();
 	    }
 	  }, {
@@ -419,6 +473,15 @@
 	About.defaultProps = { initialCount: 10 };
 	
 	exports.default = About;
+
+/***/ },
+/* 14 */
+/*!*****************************!*\
+  !*** external "node-fetch" ***!
+  \*****************************/
+/***/ function(module, exports) {
+
+	module.exports = require("node-fetch");
 
 /***/ }
 /******/ ]);

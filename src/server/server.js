@@ -3,6 +3,7 @@ import babelPolyfill from "babel-polyfill";
 // web app
 import koa from "koa";
 import koaStatic from "koa-static";
+import route from "koa-route";
 // Jade - Html Templete
 import Jade from "koa-jade";
 // node tools
@@ -26,6 +27,15 @@ const jade = new Jade({
 
 // 靜態檔案路徑
 app.use(koaStatic("./static"));
+//
+// app.use(route.get('/api/book', list));
+//
+// function *list() {
+//   var res = {
+//     "name":"123"
+//   };
+//   this.body = res;
+// }
 
 app.use(function *(next){
   const location = this.path;
