@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
+import Header from './widgets/Header/Header';
 
 
 class Main extends React.Component {
   render() {
-    const msg = "Main - Connent";
     return (
       <div>
-        <h1>{msg}</h1>
+        <Header/>
         {this.props.children}
       </div>
     );

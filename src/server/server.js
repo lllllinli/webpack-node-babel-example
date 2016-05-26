@@ -2,21 +2,22 @@
 import babelPolyfill from "babel-polyfill";
 // web app
 import koa from "koa";
+import logger  from "koa-logger";
 import koaStatic from "koa-static";
 import route from "koa-route";
-// Jade - Html Templete
 import Jade from "koa-jade";
 // node tools
 import path from "path";
-// React
-import React from "react";
-import ReactDOMServer from "react-dom/server";
-import { match, RouterContext } from "react-router";
-import routes from "./routes";
+import reactRouterHandler from "./router-handler";
 
+import api from "./api/api";
+//
+import open from "open";
+
+
+const app = koa();
 const port = 3000;
 const hostname = "localhost:";
-const app = koa();
 const staticPath = path.join(__dirname, "..", "./static");
 const viewPath = path.join(__dirname ,"/views");
 const jade = new Jade({
@@ -24,50 +25,22 @@ const jade = new Jade({
   debug: true,
   app: app
 });
+const isDev = (() => {return process.env.NODE_ENV === 'dev';})();
 
+
+app.use(logger());
 // 靜態檔案路徑
 app.use(koaStatic("./static"));
-//
-// app.use(route.get('/api/book', list));
-//
-// function *list() {
-//   var res = {
-//     "name":"123"
-//   };
-//   this.body = res;
-// }
-
-app.use(function *(next){
-  const location = this.path;
-
-  // use React Router
-  match({ routes, location: location}, (error, redirectLocation, renderProps) => {
-
-    if (redirectLocation) {
-			this.redirect(redirectLocation.pathname + redirectLocation.search, '/');
-			return;
-		}
-
-		if (error || !renderProps) {
-      return;
-		}
-
-    console.log(`--- path:${this.path}`);
-
-    const content = ReactDOMServer.renderToString(<RouterContext {...renderProps} />);
-    const webTitle = 'Koa-jade: a Jade middleware for Ko';
-    const templeteOptions =  {
-          title    : webTitle,
-          content  : content,
-          clientJs : ''
-    };
-
-    this.render('index.jade', templeteOptions);
-  });/* - match end - */
-
-});
-
+// API
+api(app);
+// react-router handler
+app.use(reactRouterHandler);
+process.env.HELLO_MSG
+// start app
 app.listen(port, () => {
 	console.info('==> ✅  Server is listening');
 	console.info('==> 🌎  Go to http://%s:%s', hostname, port);
+  if (isDev) {
+    open(`http://localhost:3000`);
+  }
 });

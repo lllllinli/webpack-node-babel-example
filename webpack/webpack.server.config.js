@@ -4,7 +4,6 @@ var path          = require("path");
 var fs            = require("fs");
 var pkg           = require(path.join(__dirname, "..", "./package.json"));
 
-
 var ENTRY_PATH = path.join(__dirname, "..", "./src/server/server" );
 var OUTPUT_PATH = path.join(__dirname, "..", "/dist");
 
@@ -34,15 +33,7 @@ module.exports = {
 				test: /\.js$/,
 				loaders: ["babel?presets[]=es2015&presets[]=stage-0&presets[]=react"],
 				exclude: /node_modules/
-			},
-			{
-        test: /\.scss$/,
-        loaders: [
-          'isomorphic-style-loader',
-          'css-loader?modules&localIdentName=[name]_[local]_[hash:base64:3]',
-          'postcss-loader'
-        ]
-      }
+			}
 		],
 		postLoaders: [],
 		noParse: /\.min\.js/
