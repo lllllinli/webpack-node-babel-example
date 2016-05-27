@@ -47,7 +47,7 @@
   \******************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! /Users/standley/Documents/work_space/frodo/src/server/server */1);
+	module.exports = __webpack_require__(/*! /Users/standley/Documents/work_space/webpack-server-example/src/server/server */1);
 
 
 /***/ },
