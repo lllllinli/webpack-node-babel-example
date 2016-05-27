@@ -49,7 +49,7 @@ CSS framework ,CSS開發工具。
     * style - sass / compass
 
     * plugins
-      + extract-text-webpack-plugin (建立 css 檔案工具)
+      + [extract-text-webpack-plugin](https://github.com/webpack/extract-text-webpack-plugin) (建立 css 檔案工具)
 
     Source: [webpack plugins list](https://github.com/webpack/docs/wiki/list-of-plugins)  
 
@@ -70,7 +70,7 @@ CSS framework ,CSS開發工具。
 ##Installation
 
 
-
 ```
+// 安裝
 $npm install
 ```
