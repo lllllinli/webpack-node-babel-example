@@ -24,11 +24,13 @@
 
 ###Client - React Commponent
 
+ReactJs，由於 Virtual Dom 不利 SEO, 選擇使用不需要ＳＥＯ的模組。
+
   - [ReactJs](https://facebook.github.io/react/)
 
-###Client -
+###Client - Comman Commponent
 
-前端非 React Component ,使用 Jquery Plugin
+前端非 React Component ,使用 Jquery 針對已存在的 Dom 物件進行操作。
 
   - [JQuery](https://jquery.com/)
 
@@ -36,7 +38,7 @@
 
 CSS framework ,CSS開發工具。
 
-  - [bootstrap](http://getbootstrap.com/)
+  - [bootstrap v.3](http://getbootstrap.com/)
   - [sass](http://sass-lang.com/)
 
 ##Tools
@@ -69,8 +71,83 @@ CSS framework ,CSS開發工具。
 
 ##Installation
 
-
 ```
 // 安裝
 $npm install
 ```
+
+##Build
+
+```
+// 會同時建出 server 和 client 的程式碼
+npm run build
+```
+
+##Dev Start
+
+```
+npm run dev
+```
+
+##product
+
+```
+npm start
+```
+
+
+
+##Router  架構
+
+後端動態產生 Dynamic Routing
+
+[exsample](https://github.com/reactjs/react-router/blob/master/docs/guides/DynamicRouting.md)
+
+
+##Sass  Architecture
+
+傾向選擇的架構。
+
+  - 1.Style Prototypes
+    依照 Atomic Design 做網頁的模組建置。
+
+頁面模組結構有：
+
+  Atom 原子結構
+
+  - pagee
+  - widget
+  - component
+
+
+```
+scss/
+|– style.scss    # Manifest
+|– partials/
+|  |– base/
+|  |  |– _content.scss
+|  |  |– content
+|  |  |  |– _variables.scss    # Component specific variables  
+|  |  |  |– _extends.scss      # Component specific extends
+|  |  |  |– _mixins.scss       # Component specific mixins
+|  |– components/
+|  |  |– _message.scss
+|  |  |– message
+|  |  |  |– _variables.scss
+|  |  |  |– _extends.scss
+|  |  |  |– _mixins.scss
+|  |– global/
+|  |  |– _variables.scss
+|  |  |– _extends.scss
+|  |  |– _mixins.scss
+|  |  |– _functions.scss
+|  |– layouts/
+|  |  |– _article.scss
+|  |  |– article
+|  |  |  |– _variables.scss
+|  |  |  |– _extends.scss
+|  |  |  |– _mixins.scss
+```
+
+
+參考文件: [A Look at Different Sass Architectures](https://www.sitepoint.com/look-different-sass-architectures/)
