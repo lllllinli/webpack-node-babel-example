@@ -165,3 +165,31 @@ scss/
  * 03. 無法使用 npm 安裝 node moudle。 需上傳整個 node_modules 資料夾
  * 04. 程式進入點設定，使用 IIS 的 web config。
  * 05. 上傳方式指定 git land
+
+
+###IIS 的 ```web.config``` 檔
+
+```
+<configuration>
+  <system.webServer>
+
+    <!-- indicates that the index.js file is a node.js application
+    to be handled by the iisnode module -->
+
+    <handlers>
+      <add name="iisnode" path="dist/server.js" verb="*" modules="iisnode" />
+    </handlers>
+
+    <!-- adds index.js to the default document list to allow
+    URLs that only specify the application root location,
+    e.g. http://mysite.antarescloud.com/ -->
+
+    <defaultDocument enabled="true">
+      <files>
+        <add value="dist/server.js" />
+      </files>
+    </defaultDocument>
+
+  </system.webServer>
+</configuration>
+```
