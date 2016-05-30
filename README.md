@@ -151,3 +151,17 @@ scss/
 
 
 參考文件: [A Look at Different Sass Architectures](https://www.sitepoint.com/look-different-sass-architectures/)
+
+
+
+
+
+#NodeJs on Microsoft Azure
+
+在 Azure Pass 上的 Web Service  注意事項：
+
+ * 01. NodeJs 版本無法控制。
+ * 02. NodeJs 無法自己啟動。
+ * 03. 無法使用 npm 安裝 node moudle。 需上傳整個 node_modules 資料夾
+ * 04. 程式進入點設定，使用 IIS 的 web config。
+ * 05. 上傳方式指定 git land
