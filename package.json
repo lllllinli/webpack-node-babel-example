@@ -1,5 +1,5 @@
 {
-  "name": "webpack server example",
+  "name": "webpack-server-example",
   "version": "1.0.0",
   "description": "use es6 in node",
   "main": "lib/index.js",

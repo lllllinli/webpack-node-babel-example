@@ -16,7 +16,7 @@ import open from "open";
 
 
 const app = koa();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const hostname = "localhost:";
 const staticPath = path.join(__dirname, "..", "./static");
 const viewPath = path.join(__dirname ,"/views");

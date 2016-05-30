@@ -110,7 +110,7 @@
 	
 	// web app
 	
-	var port = 3000;
+	var port = process.env.PORT || 3000;
 	var hostname = "localhost:";
 	var staticPath = _path2.default.join(__dirname, "..", "./static");
 	var viewPath = _path2.default.join(__dirname, "/views");
@@ -261,13 +261,15 @@
 	              return;
 	            }
 	
+	            console.log("location:" + location);
 	            var content = _server2.default.renderToString(_react2.default.createElement(_reactRouter.RouterContext, renderProps));
 	            // 每一頁引入 , 不同的 client js , 不同的 client css
 	            var webTitle = 'Koa-jade: a Jade middleware for Ko';
 	            var templeteOptions = {
 	              title: webTitle,
 	              content: content,
-	              clientJs: ''
+	              clientJsUrl: '',
+	              clientStyleUrl: ''
 	            };
 	
 	            _this.render('index.jade', templeteOptions);

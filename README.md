@@ -101,7 +101,7 @@ npm start
 
 後端動態產生 Dynamic Routing
 
-[exsample](https://github.com/reactjs/react-router/blob/master/docs/guides/DynamicRouting.md)
+[example](https://github.com/reactjs/react-router/blob/master/docs/guides/DynamicRouting.md)
 
 
 ##Sass  Architecture
@@ -161,8 +161,8 @@ scss/
 在 Azure Pass 上的 Web Service  注意事項：
 
  * 01. NodeJs 版本無法控制。
- * 02. NodeJs 無法自己啟動。
- * 03. 無法使用 npm 安裝 node moudle。 需上傳整個 node_modules 資料夾
+ * 02. npm 無法自己啟動。
+ * 03. 無法使用 npm 安裝 node moudle。 需上傳整個 node_modules 資料夾，不要設定 git
  * 04. 程式進入點設定，使用 IIS 的 web config。
  * 05. 上傳方式指定 git land
 
@@ -193,3 +193,7 @@ scss/
   </system.webServer>
 </configuration>
 ```
+
+注意：
+
+>善用 Azure 上開發工具，

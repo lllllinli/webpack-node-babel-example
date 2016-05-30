@@ -17,15 +17,18 @@ export default function *(next){
 		if (error || !renderProps) {
       return;
 		}
-
+    
     const content = ReactDOMServer.renderToString(<RouterContext {...renderProps} />);
     // 每一頁引入 , 不同的 client js , 不同的 client css
     const webTitle = 'Koa-jade: a Jade middleware for Ko';
     const templeteOptions =  {
           title    : webTitle,
           content  : content,
-          clientJs : ''
+          clientJsUrl : '',
+          clientStyleUrl : ''
     };
+
+
 
     this.render('index.jade', templeteOptions);
   });
